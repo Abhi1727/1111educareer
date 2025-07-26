@@ -3,6 +3,10 @@ from django.http import JsonResponse
 def home_data(request):
     data = {
         'message': 'Hello from Django API!',
-        'items': ['item1', 'item2', 'item3']
+        'items': [
+            {'id': 1, 'name': 'Strategic Planning'},
+            {'id': 2, 'name': 'Financial Advisory'},
+            {'id': 3, 'name': 'Operations Improvement'}
+        ]
     }
     return JsonResponse(data)

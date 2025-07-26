@@ -8,7 +8,7 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/home-data/'); // Assuming your Django backend is running on the same host/port
+        const response = await fetch('https://virenbhai-backend-485558705416.us-central1.run.app/api/home-data/'); // Assuming your Django backend is running on the same host/port
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
