@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header className="bg-white shadow-md">
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">
-        <Link to="/" className="text-2xl font-bold text-gray-800">Consulting Co.</Link>
+        <Link to="/" className="text-2xl font-bold text-gray-800">Apnaconsultant</Link>
         <nav>
           <ul className="flex space-x-4">
             <li><Link to="/" className="text-gray-600 hover:text-gray-800">Home</Link></li>
