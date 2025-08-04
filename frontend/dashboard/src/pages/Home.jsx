@@ -1,69 +1,96 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { getHomeData } from '../api';
 
 const Home = () => {
-  const colleges = [
-    { id: 1, name: 'Indian Institute of Management (IIM), Bangalore', description: 'One of the top management schools in Asia.', image: 'https://via.placeholder.com/150/FF5733/FFFFFF?text=IIM' },
-    { id: 2, name: 'Indian Institute of Technology (IIT), Bombay', description: 'Premier engineering and research institution.', image: 'https://via.placeholder.com/150/33FF57/FFFFFF?text=IIT' },
-    { id: 3, name: 'Delhi University (DU), Delhi', description: 'A collegiate public central university.', image: 'https://via.placeholder.com/150/3357FF/FFFFFF?text=DU' },
-    { id: 4, name: 'Vellore Institute of Technology (VIT), Vellore', description: 'Known for its engineering and technology programs.', image: 'https://via.placeholder.com/150/FF33A1/FFFFFF?text=VIT' },
-    { id: 5, name: 'Symbiosis International University (SIU), Pune', description: 'A multidisciplinary university with various programs.', image: 'https://via.placeholder.com/150/A133FF/FFFFFF?text=SIU' },
-    { id: 6, name: 'Amity University, Noida', description: 'A leading private university with diverse courses.', image: 'https://via.placeholder.com/150/33FFF6/FFFFFF?text=Amity' },
-    { id: 7, name: 'Manipal Academy of Higher Education (MAHE), Manipal', description: 'A deemed university known for health sciences, engineering, and management.', image: 'https://via.placeholder.com/150/F6FF33/FFFFFF?text=MAHE' },
-    { id: 8, name: 'SRM Institute of Science and Technology, Chennai', description: 'A private deemed university offering engineering, management, and medical courses.', image: 'https://via.placeholder.com/150/FF8C33/FFFFFF?text=SRM' },
-  ];
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    getHomeData()
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(error => {
+        setError(error);
+        console.error('Error fetching home data:', error);
+      });
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-900">
+    <div className="home-page">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-blue-600 to-purple-700 text-white py-20 md:py-32">
-        <div className="container mx-auto px-6 text-center">
-          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down">
-            Welcome to Apnaconsultant
-          </h1>
-          <p className="text-lg md:text-xl mb-8 opacity-90 animate-fade-in-up">
-            Your trusted partner for higher education and career guidance.
-          </p>
-          <button className="bg-white text-blue-700 hover:bg-gray-200 font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
+      <section className="hero-section bg-blue-700 text-white py-20 text-center">
+        <div className="container mx-auto px-4">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Your Future Starts Here</h1>
+          <p className="text-xl mb-8">Explore our diverse range of programs and unlock your potential.</p>
+          <button className="bg-white text-blue-700 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300">
             Explore Programs
           </button>
         </div>
       </section>
 
-      {/* Colleges Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-            Top Colleges & Universities
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {colleges.map(college => (
-              <div key={college.id} className="bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-105 transition duration-300 ease-in-out">
-                <img src={college.image} alt={college.name} className="w-full h-48 object-cover"/>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2">{college.name}</h3>
-                  <p className="text-gray-600 text-sm mb-4">{college.description}</p>
-                  <button className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
-                    Enroll Now
-                  </button>
-                </div>
+      {/* Programs Section */}
+      <section className="programs-section py-16 bg-gray-100">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Our Popular Programs</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {data && data.items && data.items.map(item => (
+              <div key={item.id} className="program-card bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300">
+                <h3 className="text-xl font-semibold mb-2">{item.name}</h3>
+                <p className="text-gray-600 mb-4">Advance your career with our flexible online master's degrees.</p>
+                <a href="#" className="text-blue-600 hover:underline">Learn More &rarr;</a>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Call to Action Section */}
-      <section className="bg-blue-700 text-white py-16 text-center">
-        <div className="container mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Start Your Journey?</h2>
-          <p className="text-lg mb-8 opacity-90">
-            Connect with our expert consultants today to find the perfect program for you.
+      {/* Resources Section */}
+      <section className="resources-section py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Resources for Your Journey</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+            <div className="resource-item p-6 bg-white rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold mb-2">Blog</h3>
+              <p className="text-gray-600">Stay updated with the latest industry insights.</p>
+            </div>
+            <div className="resource-item p-6 bg-white rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold mb-2">Free Courses</h3>
+              <p className="text-gray-600">Start learning today with our complimentary courses.</p>
+            </div>
+            <div className="resource-item p-6 bg-white rounded-lg shadow-md">
+              <h3 className="text-xl font-semibold mb-2">Student Support</h3>
+              <p className="text-gray-600">Dedicated support to help you succeed.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Us / Why Choose Us Section */}
+      <section className="about-us-section bg-blue-700 text-white py-16">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl font-bold mb-8">Why Choose Us?</h2>
+          <p className="text-lg max-w-3xl mx-auto mb-8">
+            We are committed to providing high-quality education that empowers individuals to achieve their professional goals. Our programs are designed with industry relevance and delivered by expert faculty.
           </p>
-          <button className="bg-white text-blue-700 hover:bg-gray-200 font-bold py-3 px-8 rounded-full text-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out">
-            Get Free Consultation
+          <button className="bg-white text-blue-700 font-bold py-3 px-8 rounded-full hover:bg-gray-100 transition duration-300">
+            Learn More About Us
           </button>
         </div>
       </section>
+
+      {/* Call to Action Section */}
+      <section className="cta-section py-16 text-center">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold mb-4">Ready to Transform Your Career?</h2>
+          <p className="text-lg mb-8">Join thousands of successful professionals who chose us for their educational journey.</p>
+          <button className="bg-blue-700 text-white font-bold py-3 px-8 rounded-full hover:bg-blue-800 transition duration-300">
+            Contact Admissions
+          </button>
+        </div>
+      </section>
+
+      {error && <div className="p-4 text-red-500">Error: {error.message}</div>}
     </div>
   );
 };
