@@ -105,28 +105,20 @@ The frontend will typically run on `http://localhost:5173/` (or another availabl
 
 Both the backend and frontend are configured for deployment to Google Cloud Run.
 
-### Deployed URLs
-
-*   **Backend API (Cloud Run):**
-    `https://virenbhai-backend-485558705416.us-central1.run.app`
-
-*   **Frontend App (Cloud Run):**
-    `https://virenbhai-frontend-app-485558705416.us-central1.run.app`
-
 ### Deployment Steps (Summary)
 
-1.  **Ensure Docker is running and `gcloud` CLI is configured** for your GCP project (`consulting-app-467114`).
+1.  **Ensure Docker is running and `gcloud` CLI is configured** for your GCP project.
 2.  **Build and push backend Docker image:**
     ```bash
     # From project root
-    docker buildx build --platform linux/amd64 -t gcr.io/consulting-app-467114/virenbhai-backend:latest --push .
+    docker buildx build --platform linux/amd64 -t gcr.io/YOUR_PROJECT_ID/virenbhai-backend:latest --push .
     ```
 3.  **Deploy backend to Cloud Run:**
     ```bash
     gcloud run deploy virenbhai-backend \
-      --image gcr.io/consulting-app-467114/virenbhai-backend:latest \
+      --image gcr.io/YOUR_PROJECT_ID/virenbhai-backend:latest \
       --platform managed \
-      --region us-central1 \
+      --region YOUR_REGION \
       --allow-unauthenticated \
       --port 8000
     ```
@@ -134,16 +126,16 @@ Both the backend and frontend are configured for deployment to Google Cloud Run.
     ```bash
     # From frontend/dashboard directory
     npm run build # Ensure the React app is built
-    docker buildx build --platform linux/amd64 -f Dockerfile.frontend -t gcr.io/consulting-app-467114/virenbhai-frontend:latest --push .
+    docker buildx build --platform linux/amd64 -f Dockerfile.frontend -t gcr.io/YOUR_PROJECT_ID/virenbhai-frontend:latest --push .
     ```
 5.  **Deploy frontend to Cloud Run:**
     ```bash
     gcloud run deploy virenbhai-frontend-app \
-      --image gcr.io/consulting-app-467114/virenbhai-frontend:latest \
+      --image gcr.io/YOUR_PROJECT_ID/virenbhai-frontend:latest \
       --platform managed \
-      --region us-central1 \
+      --region YOUR_REGION \
       --allow-unauthenticated \
-      --port 8080
+      --port 80
     ```
 
 ## Contributing

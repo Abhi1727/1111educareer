@@ -2,7 +2,6 @@ version: '3.8'
 
 services:
   backend:
-    image: 1111educareer/1111educareer-backend:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,14 +9,26 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
 
   frontend:
-    image: 1111educareer/1111educareer-frontend:latest
     build:
-      context: .
+      context: ./frontend/dashboard
       dockerfile: Dockerfile.frontend
     ports:
-      - "5173:80"
+      - "3000:80"
+    depends_on:
+      - backend
+
+  db:
+    image: postgres:13
     volumes:
-      - ./frontend/dashboard:/app
-      - /app/node_modules
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - .env
+
+volumes:
+  postgres_data:
