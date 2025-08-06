@@ -40,8 +40,8 @@ To run this project locally, follow these steps:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/Abhi1727/consulting_app.git
-cd consulting_app
+git clone https://github.com/Abhi1727/1111educareer.git
+cd 1111educareer
 ```
 
 ### 2. Backend Setup (Django)
