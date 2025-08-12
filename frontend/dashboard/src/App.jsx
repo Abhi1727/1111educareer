@@ -3,21 +3,21 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Layout from './layout/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
-
-import Services from './pages/Services';
 import Contact from './pages/Contact';
+import ProgramDetail from './pages/ProgramDetail';
 
 const App = () => {
   return (
     <Router>
       <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          
-          <Route path="/services" element={<Services />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+        <main className="pt-20">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/programs/:programId" element={<ProgramDetail />} />
+          </Routes>
+        </main>
       </Layout>
     </Router>
   );
